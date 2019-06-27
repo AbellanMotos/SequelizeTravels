@@ -1,0 +1,13 @@
+{{#if error}}
+    <p style="color:firebrick">Error: {{error}}</p>
+{{/if}}
+
+<form action="/users/login" method="POST">
+    <input type="text" name="email" id="email" placeholder="Email" required>
+    <input type="password" name="password" id="password" placeholder="password" required>
+    {{#if req.session.username}}
+    {{req.session.username}}
+    {{else}}
+    <button type"submit">Iniciar sesión</button>
+    {{/if}}
+</form>
