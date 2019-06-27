@@ -1,12 +1,12 @@
 const Nodemailer = require('nodemailer')
-const datos = require('./configDataEmail')
+const data = require('./configDataEmail')
 let email = {}
 
 let loginInfo = {
     service: 'Gmail',
     auth: {
-        user: datos.mail,
-        password: datos.password
+        user: data.mail,
+        password: data.password
     },
     tls: {
         rejectUnauthorized: false

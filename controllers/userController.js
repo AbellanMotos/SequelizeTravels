@@ -10,10 +10,10 @@ async function checkMail(email){
     })
 }
 
-async function user(email, username, password){
+async function addUser(email, username, password){
     let hash = await bcrypt.hash(password, SALT_ROUNDS)
-
-    if (checkMail(email) === email){
+    let checkM = await checkMail(email)
+    if (checkM === email){
         return null
     }
     else {
@@ -42,7 +42,7 @@ async function checkLogin(email, password){
 }
 
 module.exports = {
-    user,
+    addUser,
     checkLogin,
     checkMail
 }
