@@ -25,6 +25,8 @@ router.post('/add', async (req, res) => {
     let addTravel = await models.travel.create(travel)
 
     res.send(addTravel)
+    res.redirect('/')
+    
     
 })
 

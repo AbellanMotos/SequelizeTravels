@@ -12,7 +12,7 @@ let cors = require('cors')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 let travelsRouter = require('./routes/travels');
-let travelApiRouter = require('./routes/API/travelRouter')
+let travelApiRouter = require('./routes/API/travelsRouter')
 
 var app = express();
 app.use(flash())
@@ -29,7 +29,7 @@ hbs.registerPartials(__dirname + '/views/partials')
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use((req, res, next) => {
-  res.locals.user = requ.session;´
+  res.locals.user = req.session;
   next();
 })
 
@@ -43,7 +43,7 @@ app.use('./images', express.static('./uploads'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('travels', travelsRouter)
+app.use('/travels', travelsRouter)
 app.use('/api', travelApiRouter)
 
 // catch 404 and forward to error handler

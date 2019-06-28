@@ -10,4 +10,5 @@ module.exports = (sequelize, DataTypes) => {
     travel.associate = function(models){
         models.travel.belongsTo(models.user)
     }
+    return travel
 }

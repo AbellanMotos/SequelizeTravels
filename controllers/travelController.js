@@ -5,9 +5,9 @@ function addTravel(travel){
 }
 
 let printTravels = models.travel.findAll({
-    include: [{
-        models: user
-    }]
+      include: [{
+        model: models.user
+    }]  
 })
 
 module.exports = {

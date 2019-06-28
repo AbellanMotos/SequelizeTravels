@@ -1,6 +1,6 @@
 var express = require('express');
 let session = require('express-session')
-let models = requite('../models')
+let models = require('../models')
 let Hbs = require('nodemailer-express-handlebars')
 let Path = require('path')
 let data = require('../config/configEmail')
