@@ -10,7 +10,7 @@ async function checkMail(email){
     })
 }
 
-async function addUser(email, username, password){
+async function addUser(username, email, password){
     let hash = await bcrypt.hash(password, SALT_ROUNDS)
     let checkM = await checkMail(email)
     if (checkM === email){
@@ -33,7 +33,7 @@ async function checkLogin(email, password){
             email
         }
     })
-    if (result.length === 0){
+    if (result === 0){
         return null
     } else {
         let match = await bcrypt.compare(password, result.password)
