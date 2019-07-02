@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     })
     travel.associate = function(models){
         models.travel.belongsTo(models.user)
+        models.travel.hasMany(models.image, {as: "images"})
+        models.travel.hasOne(models.image, {as: "main"})
     }
     return travel
 }

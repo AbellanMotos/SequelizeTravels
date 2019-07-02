@@ -18,8 +18,8 @@ var app = express();
 app.use(flash())
 
 app.use(session({
-  secret: 'secretPass',
   name:'session',
+  secret: 'secretPass',
   resave: true,
   saveUninitialized: true,
 }))

@@ -1,4 +1,5 @@
+    <div class="card-group">
 {{#each showTravels}}
-    <a href="/travels/{{id}}"><p>{{city}}</p></a>
-    <p>creado por {{user.username}}</p>
+    {{>travelCard}}
 {{/each}}
+    </div>

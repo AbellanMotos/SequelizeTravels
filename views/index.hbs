@@ -1,7 +1,12 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
 
-<a href="/users/login">Login</a>
-<a href="/users/register">Registro</a>
-<a href="/travels/add">Añadir viaje</a>
-<a href="/travels/">Lista viajes</a>
+
+ {{>navbar}}
+
+    <div class="card-group">
+{{#each showTravels}}
+    {{>travelCard}}
+{{/each}}
+    </div>
+

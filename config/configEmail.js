@@ -1,4 +1,4 @@
-const Nodemailer = require('nodemailer')
+const nodemailer = require('nodemailer')
 const data = require('./configDataEmail')
 let email = {}
 
@@ -14,12 +14,13 @@ let loginInfo = {
 }
 
 let emailInfo = {
-    from: 'albaricoquetravels@info.com',
+    from: 'Owax90@gmail.com',
     headers: {
 
     }
 }
 
-email.transporter = Nodemailer.createTransport(loginInfo,emailInfo)
+email.transporter = nodemailer.createTransport(loginInfo,emailInfo)
 
+console.log('EMAIL', email);
 module.exports = email

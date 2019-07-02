@@ -48,10 +48,13 @@ router.get('/register', (req, res) => {
 })
 
 router.post('/register', async function (req, res){
-let {username, email, password} = req.body
-await userCont.addUser(username, email, password)
+  let {username, email, password} = req.body
+  let NewUser = await userCont.addUser(username, email, password)
 
-res.redirect('/')
+  await mailCont.emailConfirm(NewUser)
+  res.redirect('/')
+
+
 })
 
 module.exports = router;

@@ -1,6 +1,7 @@
 {{#if error}}
     <p style="color:firebrick">Error: {{error}}</p>
 {{/if}}
+ {{>navbar}}
 <form acton="/users/register" method="post">
     <input type="text" name="username" placeholder="Nombre de usuario">
     <input type="text" name="email" placeholder="Email">

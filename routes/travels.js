@@ -3,16 +3,16 @@ let express = require('express')
 let session = require('sessions')
 let router = express.Router()
 let travelCont = require('../controllers/travelController')
-
+/* 
 router.get('/', async (req, res) => {
     let showTravels = await models.travel.findAll({
         include: [{
             model: models.user
         }]
     })
-    res.render('list', {showTravels, username: req.session.username})
+    res.render('index', {showTravels, username: req.session.username})
 })
-
+ */
 router.post('/add', async (req, res) => {
     let travel = {
         city: req.body.city,
