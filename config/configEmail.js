@@ -1,26 +1,35 @@
 const nodemailer = require('nodemailer')
 const data = require('./configDataEmail')
+const path = require('path')
+const hbs = require('nodemailer-express-handlebars')
+
 let email = {}
 
 let loginInfo = {
     service: 'Gmail',
     auth: {
         user: data.mail,
-        password: data.password
+        pass: data.password
     },
     tls: {
         rejectUnauthorized: false
     }
 }
 
-let emailInfo = {
-    from: 'Owax90@gmail.com',
-    headers: {
 
-    }
+email.transporter = nodemailer.createTransport(loginInfo)
+const optionsHBS = {
+    viewEngine: {
+        extname: '.hbs',
+        partialsDir: 'views/partials',
+        layoutsDir: 'views/layouts',
+        defaultLayout: 'email.hbs'
+    },
+    extName: '.hbs',
+    viewPath: path.join(__dirname, '/../views/layouts')
 }
 
-email.transporter = nodemailer.createTransport(loginInfo,emailInfo)
+email.transporter.use('compile', hbs(optionsHBS))
 
 console.log('EMAIL', email);
 module.exports = email

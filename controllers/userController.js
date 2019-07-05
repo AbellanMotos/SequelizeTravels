@@ -41,8 +41,26 @@ async function checkLogin(email, password){
     }
 }
 
+async function getAdmin(admin, userId){
+    if(admin){
+        return await models.user.update({admin: true},
+            {where:{
+                id: userId
+            }})
+    } else {
+        return await models.user.update({admin: false}),
+        {where:{
+            id: userId
+        }}
+    }
+}
+
+let printUsers = models.user.findAll()
+
 module.exports = {
     addUser,
     checkLogin,
-    checkMail
+    checkMail,
+    getAdmin,
+    printUsers
 }

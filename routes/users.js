@@ -8,6 +8,13 @@ let userCont = require('../controllers/userController')
 let mailCont = require('../controllers/mailController')
 var router = express.Router();
 
+router.get('/users', async function(req, res, next){
+  let showUsers = await models.user.findAll()
+
+  res.render('listUsers', showUsers)
+})
+
+
 
 router.get('/login', (req, res) => {
   let error = req.flash('error')
@@ -56,5 +63,13 @@ router.post('/register', async function (req, res){
 
 
 })
+
+/* router.post('/admin/:id', async function(req, res){
+  let id = req.params.id
+  let admin
+  let users
+
+  if (req.body.)
+}) */
 
 module.exports = router;
