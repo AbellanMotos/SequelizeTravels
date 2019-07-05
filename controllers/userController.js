@@ -1,30 +1,33 @@
 let models = require("../models")
 const bcrypt = require("bcrypt")
 const SALT_ROUNDS = 10;
+let mailCont = require('../controllers/mailController')
 
-async function checkMail(email){
-    return result = await models.user.findAll({
-        where: {
-            email
-        }
-    })
-}
+
 
 async function addUser(username, email, password){
     let hash = await bcrypt.hash(password, SALT_ROUNDS)
-    let checkM = await checkMail(email)
-    if (checkM === email){
+
+    let insert = {
+        email,
+        username,
+        password: hash,
+        active: false
+    }
+    let user;
+    try{
+       user = await models.user.create(insert)
+    }catch(err){
         return null
     }
-    else {
-        let insert = {
-            email,
-            username,
-            password: hash
-        }
-        let user = await models.user.create(insert)
-        return user
-    }
+    let code =  Date.now()
+    models.hash.create({
+        userId: user.id,
+        code: code
+    }) 
+    await mailCont.emailConfirm(user, code)
+
+    return user
 }
 
 async function checkLogin(email, password){
@@ -33,7 +36,7 @@ async function checkLogin(email, password){
             email
         }
     })
-    if (result === 0){
+    if (!result){
         return null
     } else {
         let match = await bcrypt.compare(password, result.password)
@@ -55,12 +58,23 @@ async function getAdmin(admin, userId){
     }
 }
 
+async function activateUser(code){
+   let activation = await models.hash.findOne({
+        where: {
+            code
+        }
+    })
+    let user = await models.user.findByPk(activation.userId)
+    user.active = true;
+    return await user.save()
+
+}
 let printUsers = models.user.findAll()
 
 module.exports = {
     addUser,
     checkLogin,
-    checkMail,
     getAdmin,
-    printUsers
+    printUsers,
+    activateUser
 }

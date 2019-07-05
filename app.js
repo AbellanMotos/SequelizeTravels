@@ -24,6 +24,11 @@ app.use(session({
   saveUninitialized: true,
 }))
 
+app.use((req, res, next) => {
+  res.locals.session = req.session;
+  next()
+})
+
 hbs.registerPartials(__dirname + '/views/partials')
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

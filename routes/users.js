@@ -11,7 +11,6 @@ let isAdmin = require('../middlewares/auth')
 
 router.get('/', async function(req, res, next){
   let showUsers = await models.user.findAll({
-  
   })
 
   res.render('listUsers', {
@@ -22,9 +21,8 @@ router.get('/', async function(req, res, next){
 
 router.get('/login', (req, res) => {
   let error = req.flash('error')
-  
   if(req.session.username){
-    res.redirect('/travels')
+    res.redirect('/')
   }else {
     res.render('login', {
       error
@@ -47,26 +45,44 @@ router.post('/login' ,async (req, res) =>{
       req.session.userId = user.id
       req.session.admin = user.admin
       req.session.loginDate = new Date()
-      res.redirect('/travels')
+      res.redirect('/')
     }else{
       req.flash('error', '¡Usuario o contraseña invalida!')
-      res.redirect('users/login')
+      res.redirect('/users/login')
     }
   }
 })
 
 router.get('/register', (req, res) => {
-  res.render('register')
+  let error = req.flash('error')
+  if(req.session.username){
+    res.redirect('/')
+  }else {
+    res.render('register', {
+      error
+    })
+  }
 })
 
 router.post('/register', async function (req, res){
   let {username, email, password} = req.body
   let NewUser = await userCont.addUser(username, email, password)
+ 
 
-  await mailCont.emailConfirm(NewUser)
-  res.redirect('/')
+  if(!NewUser){
+     req.flash('error', '!Ha habido un problema!')
+     res.redirect('/users/register')
+  }else{
+    res.redirect('/')
+  }
+ 
 
 
+})
+
+router.get('/activate/:code', async (req, res) => {
+await userCont.activateUser(req.params.code)
+res.redirect('/users/login')
 })
 
 /* router.post('/admin/:id', async function(req, res){

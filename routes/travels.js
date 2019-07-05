@@ -3,6 +3,7 @@ let express = require('express')
 let session = require('sessions')
 let router = express.Router()
 let travelCont = require('../controllers/travelController')
+let isAdmin = require('../middlewares/auth')
 /* 
 router.get('/', async (req, res) => {
     let showTravels = await models.travel.findAll({
@@ -13,7 +14,7 @@ router.get('/', async (req, res) => {
     res.render('index', {showTravels, username: req.session.username})
 })
  */
-router.post('/add', async (req, res) => {
+router.post('/add', isAdmin, async (req, res) => {
     let travel = {
         city: req.body.city,
         price: req.body.price,
@@ -30,7 +31,7 @@ router.post('/add', async (req, res) => {
     
 })
 
-router.get('/add', async (req, res) => {
+router.get('/add', isAdmin, async (req, res) => {
     res.render('addTravel')
 })
 

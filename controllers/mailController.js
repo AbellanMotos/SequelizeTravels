@@ -3,7 +3,7 @@ const data = require('../config/configEmail')
 const path = require('path')
 let userCont = require('../controllers/userController')
 
-function emailConfirm(user){
+function emailConfirm(user, code){
 
     
     let message = {
@@ -11,7 +11,8 @@ function emailConfirm(user){
         subject: 'Registro completado. Bienvenido/a ' + user.username + '!',
         template: 'sendEmail',
         context: {
-            titulo: 'Bienvenido a Albaricoque Travels'
+            titulo: 'Bienvenido a Albaricoque Travels',
+            code
         }
     }
     data.transporter.sendMail(message).then((ok) => {
