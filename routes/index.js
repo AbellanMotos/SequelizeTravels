@@ -11,7 +11,10 @@ router.get('/', async function(req, res, next) {
           model: models.user
       }]
   })
-  res.render('index', { title: 'Albaricoque Travels 1.1', showTravels, username: req.session.username });
+  res.render('index', { 
+    title: 'Albaricoque Travels 1.1', 
+    showTravels, 
+    username: req.session.username });
 });
 
 

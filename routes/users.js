@@ -7,11 +7,15 @@ let data = require('../config/configEmail')
 let userCont = require('../controllers/userController')
 let mailCont = require('../controllers/mailController')
 var router = express.Router();
+let isAdmin = require('../middlewares/auth')
 
-router.get('/users', async function(req, res, next){
-  let showUsers = await models.user.findAll()
+router.get('/', async function(req, res, next){
+  let showUsers = await models.user.findAll({
+  
+  })
 
-  res.render('listUsers', showUsers)
+  res.render('listUsers', {
+    showUsers})
 })
 
 
@@ -28,7 +32,7 @@ router.get('/login', (req, res) => {
   }
 });
 
-router.post('/login', async (req, res) =>{
+router.post('/login' ,async (req, res) =>{
   let email = req.body. email
   let password = req.body. password
 
@@ -41,6 +45,7 @@ router.post('/login', async (req, res) =>{
       req.session.email = user.email
       req.session.username = user.username
       req.session.userId = user.id
+      req.session.admin = user.admin
       req.session.loginDate = new Date()
       res.redirect('/travels')
     }else{
